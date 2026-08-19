@@ -323,6 +323,135 @@
     color:var(--ink-faint);
     font-family:var(--font-mono);
   }
+
+  /* ---------- summary infographic panel ---------- */
+  .summary-panel{
+    background:var(--bg-elevated);
+    border:1px solid var(--border-strong);
+    border-radius:20px;
+    padding:2.2rem 1.8rem 2.4rem;
+    box-shadow:var(--shadow);
+    margin-bottom:3.8rem;
+  }
+  .summary-panel h2{
+    font-size:1.5rem;
+    margin:0.9rem 0 0.2rem;
+  }
+  .panel-label{
+    display:block;
+    font-size:0.8rem;
+    letter-spacing:0.1em;
+    color:var(--ink-faint);
+    margin:2rem 0 0.2rem;
+  }
+  .panel-label:first-of-type{ margin-top:1.8rem; }
+
+  .vs-row{
+    display:flex;
+    align-items:center;
+    gap:1rem;
+    margin-top:0.8rem;
+  }
+  .vs-card{
+    flex:1;
+    background:var(--bg);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:1.3rem 1.2rem;
+    text-align:center;
+  }
+  .vs-card .icon{
+    width:3rem; height:3rem;
+    margin:0 auto 0.8rem;
+    border-radius:12px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .vs-card.chat .icon{ background:var(--accent-2-soft-bg); color:var(--accent-2); }
+  .vs-card.agent .icon{ background:var(--accent-soft-bg); color:var(--accent); }
+  .vs-card h4{ font-family:var(--font-body); font-weight:700; font-size:1.05rem; margin:0 0 0.2rem; }
+  .vs-card .sub{ font-size:0.82rem; color:var(--ink-faint); margin-bottom:0.7rem; }
+  .vs-card .line{ font-size:0.92rem; color:var(--ink-soft); margin:0; }
+  .vs-divider{
+    flex:none;
+    width:2.3rem; height:2.3rem;
+    border-radius:50%;
+    background:var(--ink);
+    color:var(--bg);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-mono); font-size:0.72rem; font-weight:700;
+  }
+  @media (max-width:560px){
+    .vs-row{ flex-direction:column; }
+    .vs-divider{ transform:rotate(90deg); }
+  }
+
+  .mini-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:0.7rem;
+    margin-top:0.6rem;
+  }
+  .mini-item{
+    display:flex;
+    align-items:center;
+    gap:0.55rem;
+    background:var(--bg);
+    border:1px solid var(--border);
+    border-radius:999px;
+    padding:0.45rem 1rem 0.45rem 0.45rem;
+  }
+  .mini-item .mark{
+    flex:none;
+    width:1.9rem; height:1.9rem;
+    border-radius:50%;
+    background:var(--accent-soft-bg);
+    color:var(--accent);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-body); font-weight:700; font-size:0.82rem;
+  }
+  .mini-item span{ font-size:0.88rem; color:var(--ink); white-space:nowrap; }
+
+  .timeline{
+    display:flex;
+    position:relative;
+    margin-top:1.4rem;
+  }
+  .timeline::before{
+    content:"";
+    position:absolute;
+    top:1.15rem; left:1.15rem; right:1.15rem;
+    height:2px;
+    background:var(--border-strong);
+    z-index:0;
+  }
+  .tl-step{
+    flex:1;
+    position:relative;
+    z-index:1;
+    text-align:center;
+    padding:0 0.3rem;
+  }
+  .tl-step .dot{
+    width:2.3rem; height:2.3rem;
+    margin:0 auto 0.6rem;
+    border-radius:50%;
+    background:var(--bg);
+    border:2px solid var(--accent-2);
+    color:var(--accent-2);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-body); font-weight:700;
+  }
+  .tl-step .label{
+    font-size:0.85rem;
+    color:var(--ink-soft);
+    line-height:1.4;
+  }
+  @media (max-width:560px){
+    .timeline{ flex-direction:column; gap:1.1rem; }
+    .timeline::before{ top:0; bottom:0; left:1.15rem; right:auto; width:2px; height:auto; }
+    .tl-step{ display:flex; align-items:center; gap:0.9rem; text-align:left; padding:0; }
+    .tl-step .dot{ margin:0; flex:none; }
+  }
 </style>
 </head>
 <body>
@@ -335,6 +464,65 @@
     <div class="meta">
       <span>초급 안내서</span>
       <span>2026. 08</span>
+    </div>
+  </div>
+
+  <div class="summary-panel">
+    <span class="eyebrow">1분 요약</span>
+    <h2>한눈에 보는 클로드 코드</h2>
+
+    <div class="vs-row">
+      <div class="vs-card chat">
+        <div class="icon">
+          <svg viewBox="0 0 48 48" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 10h36a2 2 0 0 1 2 2v20a2 2 0 0 1-2 2H16l-8 8V14a2 2 0 0 1 2-2z"/>
+            <circle cx="16" cy="22" r="1.6" fill="currentColor" stroke="none"/>
+            <circle cx="24" cy="22" r="1.6" fill="currentColor" stroke="none"/>
+            <circle cx="32" cy="22" r="1.6" fill="currentColor" stroke="none"/>
+          </svg>
+        </div>
+        <h4>대화하는 AI</h4>
+        <p class="sub">챗GPT · 제미나이</p>
+        <p class="line">말로 답해드립니다</p>
+      </div>
+      <div class="vs-divider">VS</div>
+      <div class="vs-card agent">
+        <div class="icon">
+          <svg viewBox="0 0 48 48" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="8" width="38" height="32" rx="3"/>
+            <path d="M13 20l7 6-7 6"/>
+            <path d="M26 32h9"/>
+          </svg>
+        </div>
+        <h4>실행하는 AI</h4>
+        <p class="sub">클로드 코드</p>
+        <p class="line">직접 실행해 드립니다</p>
+      </div>
+    </div>
+
+    <span class="panel-label">하는 일 세 가지</span>
+    <div class="mini-row">
+      <div class="mini-item"><span class="mark">읽</span><span>파일을 읽고 씁니다</span></div>
+      <div class="mini-item"><span class="mark">행</span><span>명령을 실행합니다</span></div>
+      <div class="mini-item"><span class="mark">잇</span><span>단계를 스스로 이어갑니다</span></div>
+    </div>
+
+    <span class="panel-label">시니어를 위한 활용 사례</span>
+    <div class="mini-row">
+      <div class="mini-item"><span class="mark">사</span><span>사진 정리</span></div>
+      <div class="mini-item"><span class="mark">가</span><span>가계부 정리</span></div>
+      <div class="mini-item"><span class="mark">모</span><span>동창회·모임 관리</span></div>
+      <div class="mini-item"><span class="mark">자</span><span>유튜브 자막·번역</span></div>
+      <div class="mini-item"><span class="mark">건</span><span>건강 기록 그래프</span></div>
+      <div class="mini-item"><span class="mark">손</span><span>손주 사진·영상 앨범</span></div>
+    </div>
+
+    <span class="panel-label">시작 순서</span>
+    <div class="timeline">
+      <div class="tl-step"><div class="dot">1</div><div class="label">가벼운 질문<br>던져보기</div></div>
+      <div class="tl-step"><div class="dot">2</div><div class="label">반복 작업<br>맡겨보기</div></div>
+      <div class="tl-step"><div class="dot">3</div><div class="label">결과 보고<br>다듬어보기</div></div>
+      <div class="tl-step"><div class="dot">4</div><div class="label">유튜브·블로그로<br>확장하기</div></div>
     </div>
   </div>
 
