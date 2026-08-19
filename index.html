@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>클로드 코드 첫걸음</title>
+<meta name="description" content="챗GPT·제미나이에 익숙한 이사님을 위한 클로드 코드 입문 가이드">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#F6F1E7;
+    --bg-elevated:#FDFBF3;
+    --ink:#211F1A;
+    --ink-soft:#5B5748;
+    --ink-faint:#8C8672;
+    --accent:#1F4B4C;
+    --accent-strong:#153534;
+    --accent-2:#B07F2E;
+    --accent-soft-bg:#E6EEE8;
+    --accent-2-soft-bg:#F4E8CE;
+    --border:#E1D8C1;
+    --border-strong:#CBBF9E;
+    --term-bg:#182422;
+    --term-text:#EDE7D6;
+    --term-accent:#7FCFC6;
+    --term-accent-2:#E0AE5C;
+    --shadow: 0 1px 2px rgba(33,31,26,0.04), 0 6px 20px rgba(33,31,26,0.06);
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#111917;
+      --bg-elevated:#16211F;
+      --ink:#F1ECDD;
+      --ink-soft:#BDB6A0;
+      --ink-faint:#877F6B;
+      --accent:#7FCFC6;
+      --accent-strong:#A6E0D8;
+      --accent-2:#E3B369;
+      --accent-soft-bg:#1B2E2B;
+      --accent-2-soft-bg:#2B2416;
+      --border:#28352F;
+      --border-strong:#3A473F;
+      --term-bg:#0E1615;
+      --term-text:#EDE7D6;
+      --term-accent:#7FCFC6;
+      --term-accent-2:#E0AE5C;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 30px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#111917;
+    --bg-elevated:#16211F;
+    --ink:#F1ECDD;
+    --ink-soft:#BDB6A0;
+    --ink-faint:#877F6B;
+    --accent:#7FCFC6;
+    --accent-strong:#A6E0D8;
+    --accent-2:#E3B369;
+    --accent-soft-bg:#1B2E2B;
+    --accent-2-soft-bg:#2B2416;
+    --border:#28352F;
+    --border-strong:#3A473F;
+    --term-bg:#0E1615;
+    --term-text:#EDE7D6;
+    --term-accent:#7FCFC6;
+    --term-accent-2:#E0AE5C;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 30px rgba(0,0,0,0.35);
+  }
+
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Gowun Dodum','Malgun Gothic',sans-serif;
+    font-size:18px;
+    line-height:1.85;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .page{
+    max-width:760px;
+    margin:0 auto;
+    padding:4.5rem 1.5rem 6rem;
+  }
+
+  h1,h2,h3{
+    font-family:'Gowun Batang','Georgia',serif;
+    font-weight:700;
+    text-wrap:balance;
+    color:var(--ink);
+    margin:0;
+  }
+
+  .eyebrow{
+    display:inline-block;
+    font-family:'Gowun Batang',serif;
+    font-weight:700;
+    font-size:0.85rem;
+    letter-spacing:0.12em;
+    color:var(--accent);
+    background:var(--accent-soft-bg);
+    padding:0.35rem 0.9rem;
+    border-radius:999px;
+  }
+
+  /* ---------- cover ---------- */
+  .cover{
+    padding-bottom:3rem;
+    border-bottom:1px solid var(--border);
+    margin-bottom:3.5rem;
+  }
+  .cover h1{
+    font-size:2.6rem;
+    line-height:1.3;
+    margin:1.1rem 0 1rem;
+  }
+  .cover .lede{
+    font-size:1.15rem;
+    color:var(--ink-soft);
+    max-width:34rem;
+    margin:0 0 1.6rem;
+  }
+  .cover .meta{
+    display:flex;
+    gap:1.5rem;
+    font-size:0.9rem;
+    color:var(--ink-faint);
+    font-family:'IBM Plex Mono',monospace;
+  }
+
+  section{
+    margin-bottom:3.6rem;
+  }
+  section h2{
+    font-size:1.55rem;
+    margin-bottom:1.2rem;
+  }
+  section h2 .num{
+    color:var(--accent-2);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.95rem;
+    font-weight:500;
+    display:block;
+    letter-spacing:0.08em;
+    margin-bottom:0.4rem;
+  }
+  p{ margin:0 0 1.1rem; }
+  p:last-child{ margin-bottom:0; }
+  .lead-text{ color:var(--ink-soft); }
+
+  strong{ color:var(--accent-strong); font-weight:700; }
+  :root[data-theme="dark"] strong, @media (prefers-color-scheme:dark){ }
+
+  /* ---------- comparison table ---------- */
+  .compare-wrap{
+    overflow-x:auto;
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:var(--bg-elevated);
+    box-shadow:var(--shadow);
+  }
+  table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:520px;
+  }
+  thead th{
+    text-align:left;
+    font-family:'Gowun Batang',serif;
+    font-weight:700;
+    font-size:1rem;
+    padding:1rem 1.2rem;
+    border-bottom:2px solid var(--border-strong);
+  }
+  thead th:first-child{ color:var(--ink-faint); font-weight:400; font-family:'Gowun Dodum',sans-serif; }
+  thead th:nth-child(2){ color:var(--accent-2); }
+  thead th:nth-child(3){ color:var(--accent); }
+  tbody td{
+    padding:1rem 1.2rem;
+    border-bottom:1px solid var(--border);
+    vertical-align:top;
+    font-size:0.98rem;
+  }
+  tbody tr:last-child td{ border-bottom:none; }
+  tbody td:first-child{
+    color:var(--ink-faint);
+    font-size:0.85rem;
+    white-space:nowrap;
+    font-family:'IBM Plex Mono',monospace;
+  }
+
+  /* ---------- analogy callout ---------- */
+  .callout{
+    background:var(--accent-soft-bg);
+    border-left:4px solid var(--accent);
+    border-radius:0 10px 10px 0;
+    padding:1.4rem 1.6rem;
+    margin-top:1.4rem;
+  }
+  .callout .tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.78rem;
+    letter-spacing:0.08em;
+    color:var(--accent);
+    display:block;
+    margin-bottom:0.5rem;
+  }
+  .callout.warm{
+    background:var(--accent-2-soft-bg);
+    border-left-color:var(--accent-2);
+  }
+  .callout.warm .tag{ color:var(--accent-2); }
+
+  /* ---------- capability cards ---------- */
+  .cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1rem;
+    margin-top:1.4rem;
+  }
+  @media (max-width:640px){ .cards{ grid-template-columns:1fr; } }
+  .card{
+    background:var(--bg-elevated);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:1.3rem 1.3rem 1.4rem;
+    box-shadow:var(--shadow);
+  }
+  .card .mark{
+    width:2.2rem; height:2.2rem;
+    border-radius:8px;
+    background:var(--accent-soft-bg);
+    color:var(--accent);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Gowun Batang',serif; font-weight:700;
+    margin-bottom:0.9rem;
+    font-size:1.1rem;
+  }
+  .card h3{
+    font-size:1.05rem;
+    margin-bottom:0.5rem;
+  }
+  .card p{
+    font-size:0.95rem;
+    color:var(--ink-soft);
+    margin:0;
+  }
+
+  /* ---------- glossary ---------- */
+  .glossary{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1rem 1.2rem;
+    margin-top:1.4rem;
+  }
+  @media (max-width:640px){ .glossary{ grid-template-columns:1fr; } }
+  .term{
+    border-top:1px solid var(--border-strong);
+    padding-top:0.9rem;
+  }
+  .term dt{
+    font-family:'Gowun Batang',serif;
+    font-weight:700;
+    color:var(--accent);
+    font-size:1.02rem;
+    margin-bottom:0.3rem;
+  }
+  .term dd{
+    margin:0;
+    font-size:0.95rem;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- terminal mock ---------- */
+  .terminal{
+    background:var(--term-bg);
+    color:var(--term-text);
+    border-radius:14px;
+    padding:1.5rem 1.6rem 1.7rem;
+    margin-top:1.4rem;
+    box-shadow:var(--shadow);
+    font-size:0.95rem;
+  }
+  .terminal .dots{
+    display:flex; gap:0.4rem;
+    margin-bottom:1.1rem;
+  }
+  .terminal .dots span{
+    width:0.65rem; height:0.65rem; border-radius:50%;
+    background:rgba(237,231,214,0.18);
+  }
+  .terminal .line{
+    display:flex;
+    gap:0.7rem;
+    padding:0.55rem 0;
+    align-items:flex-start;
+  }
+  .terminal .line + .line{ border-top:1px solid rgba(237,231,214,0.08); }
+  .terminal .who{
+    flex:none;
+    width:5.2rem;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.75rem;
+    letter-spacing:0.04em;
+    padding-top:0.2rem;
+  }
+  .terminal .who.director{ color:var(--term-accent-2); }
+  .terminal .who.claude{ color:var(--term-accent); }
+  .terminal .say{ flex:1; line-height:1.7; }
+  .terminal .say.mono{ font-family:'IBM Plex Mono',monospace; font-size:0.85rem; color:var(--ink-faint); opacity:0.85; }
+
+  /* ---------- numbered steps ---------- */
+  .steps{
+    counter-reset:step;
+    margin-top:1.4rem;
+    display:flex;
+    flex-direction:column;
+    gap:0;
+  }
+  .step{
+    counter-increment:step;
+    display:grid;
+    grid-template-columns:2.6rem 1fr;
+    gap:0.2rem 1rem;
+    padding:1.1rem 0;
+    border-top:1px solid var(--border);
+  }
+  .step:last-child{ border-bottom:1px solid var(--border); }
+  .step::before{
+    content:counter(step);
+    font-family:'Gowun Batang',serif;
+    font-weight:700;
+    font-size:1.3rem;
+    color:var(--accent-2);
+  }
+  .step h3{
+    font-size:1.02rem;
+    margin-bottom:0.25rem;
+    font-family:'Gowun Dodum',sans-serif;
+    font-weight:400;
+    color:var(--ink);
+  }
+  .step h3 b{ color:var(--accent-strong); font-weight:700; }
+  .step p{ font-size:0.93rem; color:var(--ink-soft); margin:0; }
+
+  footer{
+    border-top:1px solid var(--border);
+    padding-top:1.6rem;
+    font-size:0.85rem;
+    color:var(--ink-faint);
+    font-family:'IBM Plex Mono',monospace;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="cover">
+    <span class="eyebrow">이사님을 위한 안내서</span>
+    <h1>클로드 코드, 처음 만나는 시간</h1>
+    <p class="lede">제미나이와 챗GPT는 이미 손에 익히신 이사님께, 코드를 직접 다루는 AI는 무엇이 다른지 차근차근 소개해 드립니다.</p>
+    <div class="meta">
+      <span>초급 안내서</span>
+      <span>2026. 08</span>
+    </div>
+  </div>
+
+  <section>
+    <h2><span class="num">시작하며</span>이미 절반은 알고 계십니다</h2>
+    <p>이사님은 제미나이·챗GPT로 글을 다듬고, 유튜브 영상을 편집·업로드하고, 블로그와 연동하는 과정을 이미 몸에 익히셨습니다. 클로드 코드는 그 경험의 다음 단계에 있는 도구일 뿐입니다.</p>
+    <p class="lead-text">다른 점은 하나입니다. 지금까지의 AI는 <strong>대화창 안에서 말로 답</strong>해 주었다면, 클로드 코드는 <strong>컴퓨터 안의 실제 파일과 프로그램을 직접 열고, 고치고, 실행</strong>합니다.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">01 · 비교</span>대화하는 AI와 실행하는 AI</h2>
+    <div class="compare-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>챗GPT · 제미나이</th>
+            <th>클로드 코드</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>하는 일</td>
+            <td>질문에 답하고 글을 써줌</td>
+            <td>파일을 직접 열어 고치고 실행함</td>
+          </tr>
+          <tr>
+            <td>결과물</td>
+            <td>채팅창 속 텍스트</td>
+            <td>실제 폴더 속 파일과 결과물</td>
+          </tr>
+          <tr>
+            <td>작업 방식</td>
+            <td>한 번 묻고 한 번 답함</td>
+            <td>여러 단계를 스스로 이어가며 끝까지 수행</td>
+          </tr>
+          <tr>
+            <td>비유</td>
+            <td>"이 내용 요약해줘"라고 부탁하는 비서</td>
+            <td>"이 폴더를 정리하고 실행까지 해줘"라고 맡기는 조수</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">02 · 개념</span>코딩이란, 아주 꼼꼼한 지시서</h2>
+    <p>코딩은 거창한 것이 아닙니다. 컴퓨터가 알아듣는 말로, 순서를 하나하나 빠짐없이 적어놓은 <strong>지시서</strong>입니다. 영상 편집 프로그램의 '매크로'나 '액션'과 비슷합니다 — 반복되는 작업을 순서대로 정리해두면, 다음부터는 그 순서를 그대로 실행하는 것이죠.</p>
+    <div class="callout">
+      <span class="tag">비유</span>
+      클로드 코드는 이사님이 말로 "이렇게 해줘"라고 설명하면, 그 말을 컴퓨터용 지시서(코드)로 스스로 옮겨 적고 대신 실행해 주는 조수입니다. 지시서를 직접 쓰실 필요는 없습니다.
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">03 · 능력</span>클로드 코드가 실제로 하는 일</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="mark">읽</div>
+        <h3>파일을 읽고 씁니다</h3>
+        <p>문서나 목록을 직접 열어 확인하고, 필요하면 내용을 고치거나 새로 만듭니다.</p>
+      </div>
+      <div class="card">
+        <div class="mark">행</div>
+        <h3>명령을 실행합니다</h3>
+        <p>프로그램을 켜고, 정리하고, 결과를 확인하는 작업을 대신 처리합니다.</p>
+      </div>
+      <div class="card">
+        <div class="mark">잇</div>
+        <h3>단계를 스스로 이어갑니다</h3>
+        <p>"이것도 하고 저것도 해줘"라고 하면 순서를 스스로 짜서 끝까지 진행합니다. 이런 성격의 AI를 <strong>'에이전트'</strong>라고 부릅니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">04 · 사례</span>이사님의 작업으로 옮겨보면</h2>
+    <p class="lead-text">유튜브 영상 200개의 파일명을 날짜별로 정리하고, 그 중 조회수 상위 10개만 골라 블로그에 올릴 목록을 만든다고 가정해 보겠습니다.</p>
+    <div class="callout warm">
+      <span class="tag">챗GPT·제미나이라면</span>
+      "파일명은 이런 규칙으로 정리하시고, 정렬은 이렇게 하시면 됩니다" — 방법을 알려주는 데서 끝납니다. 실제 정리는 이사님이 손으로 하셔야 합니다.
+    </div>
+    <div class="callout">
+      <span class="tag">클로드 코드라면</span>
+      실제 폴더에 들어가 파일명을 직접 정리하고, 조회수를 확인해 상위 10개를 골라내고, 블로그에 올릴 목록 파일까지 만들어 드립니다.
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">05 · 용어</span>먼저 알아두면 편한 말 다섯 가지</h2>
+    <dl class="glossary">
+      <div class="term">
+        <dt>터미널</dt>
+        <dd>컴퓨터에게 글로 명령을 내리는 창. 마우스 클릭 대신, 문장으로 대화하듯 명령을 주고받는 곳입니다.</dd>
+      </div>
+      <div class="term">
+        <dt>폴더와 파일</dt>
+        <dd>컴퓨터 속 서류함과 서류. 클로드 코드는 이 서류함 안에서 실제로 작업합니다.</dd>
+      </div>
+      <div class="term">
+        <dt>프롬프트</dt>
+        <dd>이사님이 입력하시는 요청 문장. 챗GPT에 쓰시던 것과 완전히 같은 개념입니다.</dd>
+      </div>
+      <div class="term">
+        <dt>에이전트</dt>
+        <dd>지시를 받으면 스스로 여러 단계를 계획하고, 끝까지 실행까지 마치는 AI를 가리키는 말입니다.</dd>
+      </div>
+      <div class="term">
+        <dt>권한 승인</dt>
+        <dd>중요한 작업 전에 "이렇게 진행해도 될까요?"라고 먼저 여쭤보는 안전장치입니다.</dd>
+      </div>
+      <div class="term">
+        <dt>세션</dt>
+        <dd>클로드 코드와 나누는 한 번의 대화 전체. 유튜브 라이브 방송 한 회차와 비슷하게, 시작과 끝이 있습니다.</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section>
+    <h2><span class="num">06 · 예시</span>실제 대화는 이런 모습입니다</h2>
+    <div class="terminal">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <div class="line">
+        <div class="who director">이사님</div>
+        <div class="say">이번 달 유튜브 영상 목록을 정리해줘. 파일명, 업로드 날짜, 조회수를 표로 만들어줘.</div>
+      </div>
+      <div class="line">
+        <div class="who claude">클로드 코드</div>
+        <div class="say say mono">videos 폴더 확인 중 · 파일 37개 발견 · 조회수 정렬 중…</div>
+      </div>
+      <div class="line">
+        <div class="who claude">클로드 코드</div>
+        <div class="say">표를 만들어 <b>영상목록.xlsx</b>로 저장했습니다. 상위 10개도 따로 표시해 두었는데, 확인해 보시겠어요?</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">07 · 안심</span>시작 전에 알아두시면 좋은 점</h2>
+    <p>클로드 코드는 파일을 지우거나 되돌리기 어려운 작업을 하기 전에는 반드시 먼저 여쭤봅니다. 대부분의 실수는 되돌릴 수 있고, 처음에는 "이 폴더에 어떤 파일들이 있는지 보여줘" 같은 가벼운 질문부터 시작하시면 충분합니다.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">08 · 다음</span>이렇게 시작해보시길 권합니다</h2>
+    <div class="steps">
+      <div class="step">
+        <h3><b>설치</b> 후 가벼운 질문 하나 던져보기</h3>
+        <p>"지금 폴더에 무슨 파일이 있어?" 정도의 부담 없는 질문으로 첫 대화를 시작합니다.</p>
+      </div>
+      <div class="step">
+        <h3>평소 <b>반복하시던 작업</b> 하나를 골라 맡겨보기</h3>
+        <p>영상 파일 정리처럼 손이 많이 가던 작업 하나를 부탁드려 봅니다.</p>
+      </div>
+      <div class="step">
+        <h3>결과를 확인하고 <b>요청을 다듬어보기</b></h3>
+        <p>결과가 원하시는 것과 다르면, 이어서 "이 부분은 이렇게 고쳐줘"라고 편하게 다시 요청합니다.</p>
+      </div>
+      <div class="step">
+        <h3>익숙해지면 <b>유튜브·블로그 작업</b>과 연결해보기</h3>
+        <p>이미 잘 아시는 영역에 접목하면 클로드 코드의 쓸모가 가장 빠르게 와닿으실 겁니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>이 안내서는 이사님과의 첫 대화를 위해 정리되었습니다.</footer>
+
+</div>
+</body>
+</html>
