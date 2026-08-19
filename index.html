@@ -5,9 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>클로드 코드 첫걸음</title>
 <meta name="description" content="챗GPT·제미나이에 익숙한 이사님을 위한 클로드 코드 입문 가이드">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
   :root{
@@ -28,47 +25,8 @@
     --term-accent:#7FCFC6;
     --term-accent-2:#E0AE5C;
     --shadow: 0 1px 2px rgba(33,31,26,0.04), 0 6px 20px rgba(33,31,26,0.06);
-  }
-
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --bg:#111917;
-      --bg-elevated:#16211F;
-      --ink:#F1ECDD;
-      --ink-soft:#BDB6A0;
-      --ink-faint:#877F6B;
-      --accent:#7FCFC6;
-      --accent-strong:#A6E0D8;
-      --accent-2:#E3B369;
-      --accent-soft-bg:#1B2E2B;
-      --accent-2-soft-bg:#2B2416;
-      --border:#28352F;
-      --border-strong:#3A473F;
-      --term-bg:#0E1615;
-      --term-text:#EDE7D6;
-      --term-accent:#7FCFC6;
-      --term-accent-2:#E0AE5C;
-      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 30px rgba(0,0,0,0.35);
-    }
-  }
-  :root[data-theme="dark"]{
-    --bg:#111917;
-    --bg-elevated:#16211F;
-    --ink:#F1ECDD;
-    --ink-soft:#BDB6A0;
-    --ink-faint:#877F6B;
-    --accent:#7FCFC6;
-    --accent-strong:#A6E0D8;
-    --accent-2:#E3B369;
-    --accent-soft-bg:#1B2E2B;
-    --accent-2-soft-bg:#2B2416;
-    --border:#28352F;
-    --border-strong:#3A473F;
-    --term-bg:#0E1615;
-    --term-text:#EDE7D6;
-    --term-accent:#7FCFC6;
-    --term-accent-2:#E0AE5C;
-    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 30px rgba(0,0,0,0.35);
+    --font-body:'맑은 고딕','Malgun Gothic','Apple SD Gothic Neo',sans-serif;
+    --font-mono:'Consolas','맑은 고딕','Malgun Gothic',monospace;
   }
 
   *{ box-sizing:border-box; }
@@ -76,7 +34,7 @@
     margin:0;
     background:var(--bg);
     color:var(--ink);
-    font-family:'Gowun Dodum','Malgun Gothic',sans-serif;
+    font-family:var(--font-body);
     font-size:18px;
     line-height:1.85;
     -webkit-font-smoothing:antialiased;
@@ -89,7 +47,7 @@
   }
 
   h1,h2,h3{
-    font-family:'Gowun Batang','Georgia',serif;
+    font-family:var(--font-body);
     font-weight:700;
     text-wrap:balance;
     color:var(--ink);
@@ -98,7 +56,7 @@
 
   .eyebrow{
     display:inline-block;
-    font-family:'Gowun Batang',serif;
+    font-family:var(--font-body);
     font-weight:700;
     font-size:0.85rem;
     letter-spacing:0.12em;
@@ -130,7 +88,7 @@
     gap:1.5rem;
     font-size:0.9rem;
     color:var(--ink-faint);
-    font-family:'IBM Plex Mono',monospace;
+    font-family:var(--font-mono);
   }
 
   section{
@@ -142,7 +100,7 @@
   }
   section h2 .num{
     color:var(--accent-2);
-    font-family:'IBM Plex Mono',monospace;
+    font-family:var(--font-mono);
     font-size:0.95rem;
     font-weight:500;
     display:block;
@@ -154,7 +112,6 @@
   .lead-text{ color:var(--ink-soft); }
 
   strong{ color:var(--accent-strong); font-weight:700; }
-  :root[data-theme="dark"] strong, @media (prefers-color-scheme:dark){ }
 
   /* ---------- comparison table ---------- */
   .compare-wrap{
@@ -171,13 +128,13 @@
   }
   thead th{
     text-align:left;
-    font-family:'Gowun Batang',serif;
+    font-family:var(--font-body);
     font-weight:700;
     font-size:1rem;
     padding:1rem 1.2rem;
     border-bottom:2px solid var(--border-strong);
   }
-  thead th:first-child{ color:var(--ink-faint); font-weight:400; font-family:'Gowun Dodum',sans-serif; }
+  thead th:first-child{ color:var(--ink-faint); font-weight:400; }
   thead th:nth-child(2){ color:var(--accent-2); }
   thead th:nth-child(3){ color:var(--accent); }
   tbody td{
@@ -191,7 +148,7 @@
     color:var(--ink-faint);
     font-size:0.85rem;
     white-space:nowrap;
-    font-family:'IBM Plex Mono',monospace;
+    font-family:var(--font-mono);
   }
 
   /* ---------- analogy callout ---------- */
@@ -203,7 +160,7 @@
     margin-top:1.4rem;
   }
   .callout .tag{
-    font-family:'IBM Plex Mono',monospace;
+    font-family:var(--font-mono);
     font-size:0.78rem;
     letter-spacing:0.08em;
     color:var(--accent);
@@ -237,7 +194,7 @@
     background:var(--accent-soft-bg);
     color:var(--accent);
     display:flex; align-items:center; justify-content:center;
-    font-family:'Gowun Batang',serif; font-weight:700;
+    font-family:var(--font-body); font-weight:700;
     margin-bottom:0.9rem;
     font-size:1.1rem;
   }
@@ -264,7 +221,7 @@
     padding-top:0.9rem;
   }
   .term dt{
-    font-family:'Gowun Batang',serif;
+    font-family:var(--font-body);
     font-weight:700;
     color:var(--accent);
     font-size:1.02rem;
@@ -304,7 +261,7 @@
   .terminal .who{
     flex:none;
     width:5.2rem;
-    font-family:'IBM Plex Mono',monospace;
+    font-family:var(--font-mono);
     font-size:0.75rem;
     letter-spacing:0.04em;
     padding-top:0.2rem;
@@ -312,7 +269,7 @@
   .terminal .who.director{ color:var(--term-accent-2); }
   .terminal .who.claude{ color:var(--term-accent); }
   .terminal .say{ flex:1; line-height:1.7; }
-  .terminal .say.mono{ font-family:'IBM Plex Mono',monospace; font-size:0.85rem; color:var(--ink-faint); opacity:0.85; }
+  .terminal .say.mono{ font-family:var(--font-mono); font-size:0.85rem; color:var(--ink-faint); opacity:0.85; }
 
   /* ---------- numbered steps ---------- */
   .steps{
@@ -326,6 +283,7 @@
     counter-increment:step;
     display:grid;
     grid-template-columns:2.6rem 1fr;
+    grid-template-rows:auto auto;
     gap:0.2rem 1rem;
     padding:1.1rem 0;
     border-top:1px solid var(--border);
@@ -333,27 +291,37 @@
   .step:last-child{ border-bottom:1px solid var(--border); }
   .step::before{
     content:counter(step);
-    font-family:'Gowun Batang',serif;
+    grid-column:1;
+    grid-row:1 / 3;
+    font-family:var(--font-body);
     font-weight:700;
     font-size:1.3rem;
     color:var(--accent-2);
   }
   .step h3{
+    grid-column:2;
+    grid-row:1;
     font-size:1.02rem;
     margin-bottom:0.25rem;
-    font-family:'Gowun Dodum',sans-serif;
+    font-family:var(--font-body);
     font-weight:400;
     color:var(--ink);
   }
   .step h3 b{ color:var(--accent-strong); font-weight:700; }
-  .step p{ font-size:0.93rem; color:var(--ink-soft); margin:0; }
+  .step p{
+    grid-column:2;
+    grid-row:2;
+    font-size:0.93rem;
+    color:var(--ink-soft);
+    margin:0;
+  }
 
   footer{
     border-top:1px solid var(--border);
     padding-top:1.6rem;
     font-size:0.85rem;
     color:var(--ink-faint);
-    font-family:'IBM Plex Mono',monospace;
+    font-family:var(--font-mono);
   }
 </style>
 </head>
@@ -457,7 +425,44 @@
   </section>
 
   <section>
-    <h2><span class="num">05 · 용어</span>먼저 알아두면 편한 말 다섯 가지</h2>
+    <h2><span class="num">05 · 활용</span>시니어를 위한 코딩 활용법</h2>
+    <p class="lead-text">유튜브·블로그뿐 아니라, 평소 손이 많이 가던 일들도 클로드 코드에게 맡길 수 있습니다.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="mark">사</div>
+        <h3>오래된 사진 정리</h3>
+        <p>수십 년 치 스캔 사진과 폰 사진을 날짜·인물별로 자동 정리하고, 앨범 폴더까지 만들어 드립니다.</p>
+      </div>
+      <div class="card">
+        <div class="mark">가</div>
+        <h3>가계부 자동 정리</h3>
+        <p>은행·카드 거래내역을 엑셀로 옮겨 월별 지출 표와 그래프까지 자동으로 만들어 드립니다.</p>
+      </div>
+      <div class="card">
+        <div class="mark">모</div>
+        <h3>동창회·모임 관리</h3>
+        <p>회원 명단과 회비 납부 현황을 표로 정리하고, 미납자만 골라 안내 문자 초안까지 작성해 드립니다.</p>
+      </div>
+      <div class="card">
+        <div class="mark">자</div>
+        <h3>유튜브 자막·번역</h3>
+        <p>영상에 자막을 자동으로 붙이고, 영어·일본어 등 여러 언어로 번역까지 해 드립니다.</p>
+      </div>
+      <div class="card">
+        <div class="mark">건</div>
+        <h3>건강 기록 그래프화</h3>
+        <p>손으로 적어온 혈압·혈당 수첩을 엑셀로 옮기고, 변화 추이를 한눈에 보는 그래프로 만들어 드립니다.</p>
+      </div>
+      <div class="card">
+        <div class="mark">손</div>
+        <h3>손주 사진·영상 앨범</h3>
+        <p>흩어진 사진과 영상을 자동으로 분류하고, 생일 축하 영상이나 슬라이드쇼까지 만들어 드립니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">06 · 용어</span>먼저 알아두면 편한 말 여섯 가지</h2>
     <dl class="glossary">
       <div class="term">
         <dt>터미널</dt>
@@ -487,7 +492,59 @@
   </section>
 
   <section>
-    <h2><span class="num">06 · 예시</span>실제 대화는 이런 모습입니다</h2>
+    <h2><span class="num">07 · 준비</span>개발 환경, 이렇게 준비하시면 됩니다</h2>
+    <p class="lead-text">이사님이 새로 준비하실 것은 생각보다 많지 않습니다.</p>
+    <dl class="glossary">
+      <div class="term">
+        <dt>컴퓨터</dt>
+        <dd>윈도우든 맥이든 상관없이 지금 쓰시는 컴퓨터를 그대로 사용하시면 됩니다.</dd>
+      </div>
+      <div class="term">
+        <dt>터미널</dt>
+        <dd>컴퓨터에 이미 들어 있는 프로그램입니다. 새로 설치할 필요 없이 실행만 하면 됩니다.</dd>
+      </div>
+      <div class="term">
+        <dt>클로드 코드 설치</dt>
+        <dd>안내에 따라 명령어 한 줄을 붙여넣고 엔터를 누르면 설치가 끝납니다.</dd>
+      </div>
+      <div class="term">
+        <dt>코드 편집기 (선택)</dt>
+        <dd>화면으로 보며 작업하고 싶으시면 '커서(Cursor)' 같은 편집기를 함께 쓰기도 합니다.</dd>
+      </div>
+    </dl>
+    <p style="margin-top:1.6rem;">여기서 말씀드린 <strong>커서(Cursor)</strong>는 클로드 코드와 자주 비교되는 도구입니다. 무엇이 다른지 짧게 정리해 드립니다.</p>
+    <div class="compare-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>커서 (Cursor)</th>
+            <th>클로드 코드</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>정체</td>
+            <td>AI 기능이 들어간 코드 편집기</td>
+            <td>대화로 지시하는 AI 조수</td>
+          </tr>
+          <tr>
+            <td>작업 방식</td>
+            <td>화면 속 파일을 마우스로 열어 확인하며 작업</td>
+            <td>말로 지시하면 AI가 스스로 이어서 진행</td>
+          </tr>
+          <tr>
+            <td>어울리는 경우</td>
+            <td>코드를 눈으로 직접 보며 배우고 싶을 때</td>
+            <td>결과만 받고 싶거나, 여러 작업을 한 번에 맡기고 싶을 때</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">08 · 예시</span>실제 대화는 이런 모습입니다</h2>
     <div class="terminal">
       <div class="dots"><span></span><span></span><span></span></div>
       <div class="line">
@@ -506,12 +563,12 @@
   </section>
 
   <section>
-    <h2><span class="num">07 · 안심</span>시작 전에 알아두시면 좋은 점</h2>
+    <h2><span class="num">09 · 안심</span>시작 전에 알아두시면 좋은 점</h2>
     <p>클로드 코드는 파일을 지우거나 되돌리기 어려운 작업을 하기 전에는 반드시 먼저 여쭤봅니다. 대부분의 실수는 되돌릴 수 있고, 처음에는 "이 폴더에 어떤 파일들이 있는지 보여줘" 같은 가벼운 질문부터 시작하시면 충분합니다.</p>
   </section>
 
   <section>
-    <h2><span class="num">08 · 다음</span>이렇게 시작해보시길 권합니다</h2>
+    <h2><span class="num">10 · 다음</span>이렇게 시작해보시길 권합니다</h2>
     <div class="steps">
       <div class="step">
         <h3><b>설치</b> 후 가벼운 질문 하나 던져보기</h3>
